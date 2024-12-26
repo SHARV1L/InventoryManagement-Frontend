@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchItems } from "../services/api";
 import Item from './Item';
 
@@ -13,6 +13,7 @@ function ItemList(){
             try{
                 // API calling for fetching the items
                 const data = await fetchItems();
+                console.log("Fetched items: ", data);
                 setItems(data);
             }
             catch(error){
@@ -28,14 +29,18 @@ function ItemList(){
         <div>
             <h1>Inventory Items</h1>
             <ul>
-                {items.map((item) => (
-                    <Item
-                    key={item.id}
-                    name={item.name}
-                    quantity={item.quantity}
-                    expirationDate={item.expirationDate}
-                    />
-                ))}
+                {items.length > 0 ? (
+                    items.map((item) => (
+                        <Item
+                            key={item.id}
+                            name={item.name}
+                            quantity={item.quantity}
+                            expirationDate={item.expirationDate}
+                            />
+                        ))
+                    ) : (
+                        <p>No items available.</p> // Show a fallback message if the items array is empty
+                    )}
             </ul>
         </div>
     );

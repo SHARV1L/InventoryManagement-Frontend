@@ -7,3 +7,5 @@ function Item({name, quantity, expirationDate}) {
         </li>
     );
 }
+
+export default Item;
